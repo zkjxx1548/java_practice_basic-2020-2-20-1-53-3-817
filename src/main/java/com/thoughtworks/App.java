@@ -1,9 +1,7 @@
 package com.thoughtworks;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class App {
 
@@ -20,12 +18,11 @@ public class App {
       mr.save(student.getId(), student);
     }
 
-    mr.get("3").toString();
-    mr.delete("李四");
+    System.out.println(mr.get("3").toString());
+    mr.delete("4");
     mr.update("5", new Student("5", "冯五"));
 
-    for (Student student : mr.list()) {
-      RepositoryUtil.printList(student);
-    }
+    RepositoryUtil.printList(mr.list());
+
   }
 }

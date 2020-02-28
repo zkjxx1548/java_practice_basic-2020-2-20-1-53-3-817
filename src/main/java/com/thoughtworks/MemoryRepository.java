@@ -2,43 +2,45 @@ package com.thoughtworks;
 
 import java.util.*;
 
-public class MemoryRepository implements Repository<Student> {
-    private Map<String, Student> students = new HashMap<>();
+public class MemoryRepository<E> implements Repository<E> {
+    private Map<String, E> map = new HashMap<>();
 
     public MemoryRepository() {
     }
 
-    public MemoryRepository(Map<String, Student> students) {
-        this.students = students;
+    public MemoryRepository(Map<String, E> map) {
+        this.map = map;
     }
 
     @Override
-    public void save(String id, Student entity) {
-        students.put(id, entity);
+    public void save(String id, E entity) {
+        if (map.containsKey(id)) {
+            System.out.println("已存在该id的学生");
+        } else {
+            map.put(id, entity);
+        }
     }
 
     @Override
-    public Student get(String id) {
-        return students.get(id);
+    public E get(String id) {
+        return map.get(id);
     }
 
     @Override
     public void delete(String id) {
-        students.remove(id);
+        map.remove(id);
     }
 
     @Override
-    public void update(String id, Student entity) {
-        students.put(id, entity);
+    public void update(String id, E entity) {
+        map.put(id, entity);
     }
 
     @Override
-    public List<Student> list() {
-        List<Student> list = new ArrayList<>();
-        Set<Map.Entry<String, Student>> set = students.entrySet();
-        Iterator<Map.Entry<String, Student>> it = set.iterator();
-        while (it.hasNext()) {
-            Map.Entry<String, Student> entry = it.next();
+    public List<E> list() {
+        List<E> list = new ArrayList<>();
+        Set<Map.Entry<String, E>> set = map.entrySet();
+        for (Map.Entry<String, E> entry : set) {
             list.add(entry.getValue());
         }
         return list;
